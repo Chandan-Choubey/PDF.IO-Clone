@@ -4,6 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+<<<<<<< HEAD
+=======
+
+
+
+if(process.env.NODE_ENV !== 'production')
+{
+  var axe = require('react-axe');
+  axe(React,ReactDOM,1000);
+}
+>>>>>>> friend-repo/main
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

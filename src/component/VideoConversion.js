@@ -61,7 +61,12 @@ function VideoConversion({ onClose }) {
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: "video/*",
+    accept: {
+      "video/mp4": [".mp4"],
+      "video/avi": [".avi"],
+      "video/mov": [".mov"],
+      "video/mkv": [".mkv"],
+    },
     onDrop: handleDrop,
     onDropRejected: handleDropRejected,
     multiple: false,

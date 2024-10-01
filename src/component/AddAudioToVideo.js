@@ -124,7 +124,7 @@ const AddAudioToVideo = ({ onClose }) => {
       {errorMessage && <p className="error-message">{errorMessage}</p>}
       {successMessage && <p className="success-message">{successMessage}</p>}
 
-      <button onClick={handleSubmit} disabled={isSubmitting}>
+      <button onClick={handleSubmit} role="button" disabled={isSubmitting}>
         {isSubmitting ? "Processing..." : "Add Audio to Video"}
       </button>
       <button onClick={onClose}>Close</button>

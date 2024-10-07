@@ -83,19 +83,12 @@ const PdfToPngConverter = ({ onClose }) => {
       </button>
       <h2>PDF to PNG Converter</h2>
 
-      {/* Drag-and-drop zone */}
       <div
         {...getRootProps()}
         className={`drop-zone ${isDragActive ? "dragging" : ""}`}
       >
         <input {...getInputProps()} />
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="white"
-          viewBox="0 0 24 24"
-        >
-          <path d="M12 2a10 10 0 00-9.9 9h-2a1 1 0 100 2h2.08A9.959 9.959 0 0012 22a10 10 0 009.9-9h2.1a1 1 0 100-2h-2.1A10 10 0 0012 2zm0 18a8 8 0 01-7.9-7h15.8a8 8 0 01-7.9 7zM8 12H6l6-6 6 6h-2v4h-4v-4z" />
-        </svg>
+
         <span>
           {selectedFileName ||
             (isDragActive

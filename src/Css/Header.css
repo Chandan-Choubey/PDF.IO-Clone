@@ -1,7 +1,6 @@
-/* General Header Styling */
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   background-color: #007bff;
   color: white;
@@ -11,6 +10,7 @@
   position: sticky;
   top: 0;
   z-index: 999;
+  width: 100%;
 }
 
 .header-container {
@@ -24,9 +24,10 @@
 }
 
 .logo {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: bold;
   letter-spacing: 1.5px;
+  white-space: nowrap;
 }
 
 .menu-toggle {
@@ -36,6 +37,8 @@
   color: white;
   font-size: 24px;
   cursor: pointer;
+  position: relative;
+  z-index: 1001; /* Ensure toggle is clickable over other elements */
 }
 
 .nav {
@@ -60,6 +63,7 @@
 .menu-item {
   position: relative;
   margin-left: 20px;
+  width: 16vh;
 }
 
 .menu-button {
@@ -67,7 +71,7 @@
   border: none;
   color: white;
   font-size: 16px;
-  padding: 20px 70px; /* Increased padding for better spacing */
+  padding: 10px 20px;
   cursor: pointer;
   font-weight: 500;
   transition: background-color 0.3s ease;
@@ -86,15 +90,21 @@
   background-color: white;
   list-style: none;
   padding: 10px;
-  font-size: 5px;
+  font-size: 14px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  border-radius: 9px;
+  border-radius: 8px;
   display: none;
   z-index: 1000;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: scaleY(0);
+  transform-origin: top;
+  opacity: 0;
 }
 
 .menu-item:hover .dropdown-menu {
   display: block;
+  transform: scaleY(1);
+  opacity: 1;
 }
 
 .dropdown-menu li {
@@ -105,15 +115,13 @@
   color: #333;
   text-decoration: none;
   display: block;
-  font-size: 13px;
-  width: 200px;
-  padding: 7px 9px; /* Increased padding for better readability */
+  padding: 7px 9px;
   transition: background-color 0.3s ease;
 }
 
 .dropdown-menu a:hover {
   background-color: #f5f5f5;
-  border-radius: 9px;
+  border-radius: 5px;
 }
 
 /* Scrollable Menu */
@@ -124,8 +132,8 @@
 
 .menu-item-btn {
   border: none;
-  width: 100%;
-  height: 30px;
+  width: 10vh;
+  height: auto;
 }
 
 /* Login Button */
@@ -133,14 +141,13 @@
   background-color: #fff;
   border: 2px solid white;
   color: #007bff;
-  font-size: 18px; /* Increased font size for better readability */
-  padding: 12px 20px; /* Increased padding for larger button size */
+  font-size: 16px;
+  padding: 13px 20px;
   cursor: pointer;
-  border-radius: 7px;
-  width: 100%; /* Ensures full width is used */
-  max-width: 200px; /* Optional: Adjust the max width */
+  border-radius: 8px;
+  min-width: 133px;
   transition: background-color 0.3s ease, color 0.3s ease;
-  text-align: center; /* Align the text in the center */
+  text-align: center;
 }
 
 .login-button:hover {
@@ -164,8 +171,9 @@
     background-color: #007bff;
     width: 100%;
     position: absolute;
-    top: 90px;
+    top: 60px;
     right: 0;
+    z-index: 1000;
   }
 
   .nav.open {
@@ -176,11 +184,13 @@
   .menu {
     flex-direction: column;
     width: 100%;
+    padding: 20px 0;
   }
 
   .menu-item {
     width: 100%;
     text-align: center;
+    margin: 10px 0;
   }
 
   .dropdown-menu {
@@ -188,6 +198,11 @@
     position: static;
     border-radius: 0;
     box-shadow: none;
+    background-color: #f9f9f9;
+  }
+
+  .dropdown-menu a {
+    padding: 10px 15px;
   }
 
   .login-button {
@@ -199,7 +214,7 @@
 /* Mobile (max-width: 320px) */
 @media (max-width: 320px) {
   .logo {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
   }
 
   .menu-toggle {
@@ -207,7 +222,7 @@
   }
 
   .login-button {
-    font-size: 16px; /* Increased font size for better visibility */
-    padding: 12px 20px; /* Increased padding to avoid word overflow */
+    font-size: 15px;
+    padding: 12px 20px;
   }
 }

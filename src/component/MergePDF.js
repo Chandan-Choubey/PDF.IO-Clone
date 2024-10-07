@@ -117,8 +117,8 @@ const MergePDF = ({ onClose }) => {
         }}
       >
         <input {...getInputProps()} />
-        {pdfFile.file1 && pdfFile.file2 ? (
-          <p>{`${pdfFile.file1.name} & ${pdfFile.file2.name}`}</p>
+        {pdfFile?.file1 && pdfFile?.file2 ? (
+          <p>{`${pdfFile?.file1.name} & ${pdfFile?.file2.name}`}</p>
         ) : (
           <p>
             {isDragActive

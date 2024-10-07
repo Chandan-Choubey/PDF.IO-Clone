@@ -11,7 +11,7 @@
 
 .pdfToPptConverter {
   max-width: 100%;
-  height: 300px;
+  height: auto; /* Adjusted to be auto to accommodate content */
   margin: 20px auto;
   padding: 20px;
   border: 2px solid #ccc;
@@ -152,7 +152,7 @@
 
 .pdfToPptConverter .closeButton {
   position: absolute;
-  top: 10px;
+  top: -2px;
   right: 10px;
   background: none;
   border: none;
@@ -160,4 +160,17 @@
   cursor: pointer;
   color: #555;
   transition: color 0.3s ease;
+}
+
+/* Styles for the drop zone */
+.drop-zone {
+  border: 2px dashed #007bff;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  transition: background-color 0.3s ease;
+}
+
+.drop-zone.dragging {
+  background-color: rgba(0, 123, 255, 0.1);
 }

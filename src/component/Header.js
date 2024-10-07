@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
 import "../Css/Header.css";
 import { FaBars, FaTimes } from "react-icons/fa";
@@ -61,21 +62,18 @@ function Header({ onSelectMenu }) {
       label: "Video Tools",
       options: [
         { id: 1, label: "Video Conversion", link: "videoConversion" },
-        { id: 2, label: "Video Editing", link: "videoEditing" },
         { id: 3, label: "Screen Recorder", link: "screenRecorder" },
         { id: 4, label: "Add Audio to Video", link: "addAudioToVideo" },
         { id: 5, label: "Add Image to Video", link: "addImageToVideo" },
         { id: 6, label: "Add Text to Video", link: "addTextToVideo" },
-        { id: 7, label: "Remove Logo from Video", link: "removeLogoFromVideo" },
-        { id: 8, label: "Crop Video", link: "cropVideo" },
-        { id: 9, label: "Rotate Video", link: "rotateVideo" },
-        { id: 10, label: "Flip Video", link: "flipVideo" },
-        { id: 11, label: "Resize Video", link: "resizeVideo" },
-        { id: 12, label: "Loop Video", link: "loopVideo" },
-        { id: 13, label: "Change Volume", link: "changeVolume" },
-        { id: 14, label: "Change Speed", link: "changeSpeed" },
-        { id: 15, label: "Text to Speech", link: "textToSpeech" },
-        { id: 16, label: "Merge Videos", link: "mergeVideos" },
+        { id: 7, label: "Crop Video", link: "cropVideo" },
+        { id: 8, label: "Rotate Video", link: "rotateVideo" },
+        { id: 9, label: "Flip Video", link: "flipVideo" },
+        { id: 10, label: "Resize Video", link: "resizeVideo" },
+        { id: 11, label: "Loop Video", link: "loopVideo" },
+        { id: 12, label: "Change Volume", link: "changeVolume" },
+        { id: 13, label: "Change Speed", link: "changeSpeed" },
+        { id: 14, label: "Merge Videos", link: "mergeVideos" },
       ],
     },
     {

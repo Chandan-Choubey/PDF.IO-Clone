@@ -1,16 +1,27 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../Css/Header.css";
 import { FaBars, FaTimes } from "react-icons/fa";
 import LoginSignupForm from "./LoginSignupForm";
+import { jwtDecode } from "jwt-decode";
 
 function Header({ onSelectMenu }) {
   const [selectedMenu, setSelectedMenu] = useState(null);
   const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);
   const [isMenuIcon, setIsMenuIcon] = useState(false);
+  const [token, setToken] = useState(false);
+  const [user, setUser] = useState({
+    email: "",
+    username: "",
+  });
 
   const toggleMenuIcon = () => {
     setIsMenuIcon(!isMenuIcon);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+    setUser({ email: "", username: "" });
   };
 
   const toggleDropdown = (menu) => {
@@ -92,6 +103,26 @@ function Header({ onSelectMenu }) {
     },
   ];
 
+  const getToken = () => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+      try {
+        const decoded = jwtDecode(storedToken);
+        setUser({ username: decoded.username, email: decoded.email });
+      } catch (error) {
+        console.error("Invalid token:", error);
+        alert("Invalid token. Please log in again.");
+      }
+    } else {
+      setUser({ email: "", username: "" });
+    }
+  };
+
+  useEffect(() => {
+    getToken();
+  }, [token]);
+
   return (
     <header className="header">
       <div className="header-container">
@@ -134,8 +165,11 @@ function Header({ onSelectMenu }) {
             ))}
 
             <li className="menu-item">
-              <button className="login-button" onClick={toggleLoginForm}>
-                Login
+              <button
+                className="login-button"
+                onClick={token ? handleLogout : toggleLoginForm}
+              >
+                {token ? "Logout" : "Login"}
               </button>
             </li>
           </ul>

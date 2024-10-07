@@ -6,8 +6,6 @@ import axios from "axios";
 const CompressPDF = ({ onClose }) => {
   const { pdfFile, setPdfFile, isCompressing, setIsCompressing } =
     useContext(PdfContext);
-  const context = useContext(PdfContext);
-  console.log(context);
   const [fileDetails, setFileDetails] = useState({
     name: "",
     error: "",
@@ -56,6 +54,7 @@ const CompressPDF = ({ onClose }) => {
           responseType: "blob",
         }
       );
+
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;

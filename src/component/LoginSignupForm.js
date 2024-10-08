@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../Css/LoginSignupForm.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-const LoginSignupForm = ({ closeForm }) => {
+function LoginSignupForm({ closeForm, onLoginSuccess }) {
   const [isLogin, setIsLogin] = useState(true);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [email, setEmail] = useState("");
@@ -160,6 +160,7 @@ const LoginSignupForm = ({ closeForm }) => {
       if (response.ok) {
         if (result.token) {
           localStorage.setItem("token", result.token);
+          onLoginSuccess(); // Call onLoginSuccess after successful login/signup
         }
         alert("Successful!");
         closeForm();
@@ -288,6 +289,6 @@ const LoginSignupForm = ({ closeForm }) => {
       )}
     </div>
   );
-};
+}
 
 export default LoginSignupForm;

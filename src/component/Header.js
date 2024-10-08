@@ -3,12 +3,11 @@ import "../Css/Header.css";
 import { FaBars, FaTimes } from "react-icons/fa";
 import LoginSignupForm from "./LoginSignupForm";
 import { jwtDecode } from "jwt-decode";
-
 function Header({ onSelectMenu }) {
   const [selectedMenu, setSelectedMenu] = useState(null);
   const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);
   const [isMenuIcon, setIsMenuIcon] = useState(false);
-  const [token, setToken] = useState(false);
+  const [token, setToken] = useState(localStorage.getItem("token")); // Initialize with the value from localStorage
   const [user, setUser] = useState({
     email: "",
     username: "",
@@ -20,8 +19,8 @@ function Header({ onSelectMenu }) {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    setToken(null);
-    setUser({ email: "", username: "" });
+    setToken(null); // Clear token state
+    setUser({ email: "", username: "" }); // Clear user data
   };
 
   const toggleDropdown = (menu) => {
@@ -106,22 +105,33 @@ function Header({ onSelectMenu }) {
   const getToken = () => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
-      setToken(storedToken);
       try {
         const decoded = jwtDecode(storedToken);
-        setUser({ username: decoded.username, email: decoded.email });
+        setToken(storedToken); // Update token state
+        setUser({ username: decoded.username, email: decoded.email }); // Update user state
       } catch (error) {
         console.error("Invalid token:", error);
         alert("Invalid token. Please log in again.");
+        handleLogout();
       }
-    } else {
-      setUser({ email: "", username: "" });
     }
   };
 
+  // Only fetch token when the component mounts
   useEffect(() => {
     getToken();
-  }, [token, getToken]);
+  }, []); // Empty dependency array ensures it only runs once
+
+  // Handle login success (called after a successful login)
+  const handleLoginSuccess = () => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken); // Immediately update the token after login
+      const decoded = jwtDecode(storedToken);
+      setUser({ username: decoded.username, email: decoded.email });
+      setIsLoginFormOpen(false); // Close the login form
+    }
+  };
 
   return (
     <header className="header">
@@ -169,12 +179,18 @@ function Header({ onSelectMenu }) {
                 className="login-button"
                 onClick={token ? handleLogout : toggleLoginForm}
               >
-                {token ? "Logout" : "Login"}
+                {token ? "Logout" : "Login"}{" "}
+                {/* Conditionally render button text */}
               </button>
             </li>
           </ul>
         </nav>
-        {isLoginFormOpen && <LoginSignupForm closeForm={toggleLoginForm} />}
+        {isLoginFormOpen && (
+          <LoginSignupForm
+            closeForm={toggleLoginForm}
+            onLoginSuccess={handleLoginSuccess} // Pass the login success handler
+          />
+        )}
       </div>
     </header>
   );

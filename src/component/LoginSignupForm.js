@@ -134,10 +134,9 @@ const LoginSignupForm = ({ closeForm }) => {
   const submitForm = async (e) => {
     e.preventDefault();
 
-    // Check if the form is valid before submitting
     if (!isFormValid) {
       alert("Please fill in all required fields correctly.");
-      return; // Prevent submission
+      return;
     }
 
     const endpoint = isLogin ? "/login" : "/signup";

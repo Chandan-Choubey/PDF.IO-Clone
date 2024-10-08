@@ -93,7 +93,6 @@ app.post("/login", async (req, res) => {
         expiresIn: "1h",
       }
     );
-    localStorage.setItem("token", token);
     res.json({ token });
   } catch (error) {
     console.error("Error generating JWT:", error);

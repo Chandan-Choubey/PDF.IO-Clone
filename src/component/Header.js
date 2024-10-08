@@ -121,7 +121,7 @@ function Header({ onSelectMenu }) {
 
   useEffect(() => {
     getToken();
-  }, [token]);
+  }, [token, getToken]);
 
   return (
     <header className="header">

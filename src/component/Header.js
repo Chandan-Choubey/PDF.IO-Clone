@@ -107,8 +107,8 @@ function Header({ onSelectMenu }) {
     if (storedToken) {
       try {
         const decoded = jwtDecode(storedToken);
-        setToken(storedToken); // Update token state
-        setUser({ username: decoded.username, email: decoded.email }); // Update user state
+        setToken(storedToken);
+        setUser({ username: decoded.username, email: decoded.email });
       } catch (error) {
         console.error("Invalid token:", error);
         alert("Invalid token. Please log in again.");
@@ -117,19 +117,17 @@ function Header({ onSelectMenu }) {
     }
   };
 
-  // Only fetch token when the component mounts
   useEffect(() => {
     getToken();
-  }, []); // Empty dependency array ensures it only runs once
+  }, []);
 
-  // Handle login success (called after a successful login)
   const handleLoginSuccess = () => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
-      setToken(storedToken); // Immediately update the token after login
+      setToken(storedToken);
       const decoded = jwtDecode(storedToken);
       setUser({ username: decoded.username, email: decoded.email });
-      setIsLoginFormOpen(false); // Close the login form
+      setIsLoginFormOpen(false);
     }
   };
 
@@ -156,7 +154,9 @@ function Header({ onSelectMenu }) {
                 {selectedMenu === menu.id && (
                   <ul
                     className={`dropdown-menu ${
-                      menu.id === "videoTools" ? "scrollable-menu" : ""
+                      menu.id === "videoTools" || menu.id === "audioTools"
+                        ? "scrollable-menu"
+                        : ""
                     }`}
                   >
                     {menu.options.map((option) => (
@@ -180,7 +180,6 @@ function Header({ onSelectMenu }) {
                 onClick={token ? handleLogout : toggleLoginForm}
               >
                 {token ? "Logout" : "Login"}{" "}
-                {/* Conditionally render button text */}
               </button>
             </li>
           </ul>
@@ -188,7 +187,7 @@ function Header({ onSelectMenu }) {
         {isLoginFormOpen && (
           <LoginSignupForm
             closeForm={toggleLoginForm}
-            onLoginSuccess={handleLoginSuccess} // Pass the login success handler
+            onLoginSuccess={handleLoginSuccess}
           />
         )}
       </div>

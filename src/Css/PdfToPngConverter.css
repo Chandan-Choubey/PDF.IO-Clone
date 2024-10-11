@@ -103,6 +103,7 @@
   position: relative;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  
 }
 
 .pdfToPngConverter button:before {
@@ -166,8 +167,9 @@
   font-size: 0.9rem;
   cursor: pointer;
   color: #555;
-  z-index: 10; /* Ensure it's above other elements */
+  z-index: 10;
   transition: color 0.3s ease;
+  width: 10vh;
 }
 
 .pdfToPngConverter .closeButton:hover {

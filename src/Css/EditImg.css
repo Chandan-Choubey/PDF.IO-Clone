@@ -11,7 +11,7 @@
 
 .editImg {
   max-width: 87%;
-  height: 300px;
+  height: 40vh;
   margin: 20px auto;
   padding: 20px;
   border: 2px solid #ccc;
@@ -201,6 +201,7 @@
   cursor: pointer;
   color: #555;
   transition: color 0.3s ease;
+  width: 10vh;
 }
 
 .editImg .errorMessage {

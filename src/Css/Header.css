@@ -4,7 +4,7 @@
   align-items: center;
   background-color: #007bff;
   color: white;
-  padding: 15px 30px;
+  padding: 0 30px;
   animation: fadeInDown 1s ease-in-out;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: sticky;
@@ -38,7 +38,7 @@
   font-size: 24px;
   cursor: pointer;
   position: relative;
-  z-index: 1001; /* Ensure toggle is clickable over other elements */
+  z-index: 1001;
 }
 
 .nav {
@@ -82,7 +82,6 @@
   border-radius: 9px;
 }
 
-/* Dropdown Menu */
 .dropdown-menu {
   position: absolute;
   top: 100%;
@@ -108,7 +107,7 @@
 }
 
 .dropdown-menu li {
-  padding: 7px 0; /* Adjusted for better spacing */
+  padding: 7px 0;
 }
 
 .dropdown-menu a {
@@ -124,7 +123,6 @@
   border-radius: 5px;
 }
 
-/* Scrollable Menu */
 .scrollable-menu {
   max-height: 250px;
   overflow-y: auto;
@@ -136,7 +134,6 @@
   height: auto;
 }
 
-/* Login Button */
 .login-button {
   background-color: #fff;
   border: 2px solid white;
@@ -155,13 +152,12 @@
   color: white;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .menu-toggle {
     display: block;
-    position: absolute;
-    top: 18px;
-    right: 20px;
+    position: relative;
+    top: 5px;
+    right: -15px;
   }
 
   .nav {

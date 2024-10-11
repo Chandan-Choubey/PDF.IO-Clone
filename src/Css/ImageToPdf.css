@@ -145,4 +145,5 @@
   font-size: 0.9rem;
   cursor: pointer;
   transition: color 0.3s ease;
+  width: 10vh;
 }

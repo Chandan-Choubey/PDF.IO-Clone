@@ -160,7 +160,7 @@ function LoginSignupForm({ closeForm, onLoginSuccess }) {
       if (response.ok) {
         if (result.token) {
           localStorage.setItem("token", result.token);
-          onLoginSuccess(); // Call onLoginSuccess after successful login/signup
+          onLoginSuccess();
         }
         alert("Successful!");
         closeForm();

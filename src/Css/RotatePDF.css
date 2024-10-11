@@ -151,6 +151,7 @@
   cursor: pointer;
   color: #555;
   transition: color 0.3s ease;
+  width: 10vh;
 }
 
 .rotatePdf .errorMessage {

@@ -5,10 +5,12 @@ import { useDropzone } from "react-dropzone";
 const AddTextToVideo = ({ onClose }) => {
   const [videoFile, setVideoFile] = useState(null);
   const [text, setText] = useState("");
+  const [fontsize, setFontSize] = useState(50);
+  const [x, setXPosition] = useState("");
+  const [y, setYPosition] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [processedVideoUrl, setProcessedVideoUrl] = useState(null);
 
   const onDrop = useCallback((acceptedFiles) => {
     const file = acceptedFiles[0];
@@ -22,7 +24,7 @@ const AddTextToVideo = ({ onClose }) => {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: "video/*",
+    accept: "video/mp4, video/x-matroska, video/x-msvideo, video/quicktime",
     multiple: false,
   });
 
@@ -43,18 +45,30 @@ const AddTextToVideo = ({ onClose }) => {
     const formData = new FormData();
     formData.append("video", videoFile);
     formData.append("text", text);
-
+    formData.append("fontsize", fontsize);
+    formData.append("x", x);
+    formData.append("y", y);
     try {
       const response = await axios.post(
         "http://localhost:8080/add-text-to-video",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
+          responseType: "blob",
         }
       );
 
-      setProcessedVideoUrl(response.data.videoUrl);
-      setSuccessMessage("Text added to video successfully.");
+      const downloadUrl = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.setAttribute("download", "video_with_text.mp4");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      setSuccessMessage(
+        "Text added to video and video downloaded successfully."
+      );
     } catch (error) {
       console.error("Error occurred:", error);
       setErrorMessage(
@@ -66,18 +80,10 @@ const AddTextToVideo = ({ onClose }) => {
     }
   };
 
-  const handleDownload = () => {
-    const link = document.createElement("a");
-    link.href = processedVideoUrl;
-    link.setAttribute("download", "video_with_text.mp4");
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-  };
-
   return (
     <div className="add-text-to-video">
       <h2>Add Text to Video</h2>
+
       <div
         {...getRootProps()}
         className={`dropzone ${isDragActive ? "active" : ""}`}
@@ -100,17 +106,42 @@ const AddTextToVideo = ({ onClose }) => {
 
       <input
         type="file"
-        accept="video/*"
+        accept="video/mp4,video/x-matroska,video/x-msvideo,video/quicktime"
         onChange={(e) => setVideoFile(e.target.files[0])}
       />
-
       <input
         type="text"
         placeholder="Enter text"
         value={text}
         onChange={handleTextChange}
       />
-      {text && <p>Text: {text}</p>}
+
+      <div>
+        <label>Font Size:</label>
+        <input
+          type="number"
+          value={fontsize}
+          onChange={(e) => setFontSize(e.target.value)}
+        />
+      </div>
+
+      <div>
+        <label>X Position:</label>
+        <input
+          type="text"
+          value={x}
+          onChange={(e) => setXPosition(e.target.value)}
+        />
+      </div>
+
+      <div>
+        <label>Y Position:</label>
+        <input
+          type="text"
+          value={y}
+          onChange={(e) => setYPosition(e.target.value)}
+        />
+      </div>
 
       {errorMessage && <p className="error">{errorMessage}</p>}
       {successMessage && <p className="success">{successMessage}</p>}
@@ -119,16 +150,6 @@ const AddTextToVideo = ({ onClose }) => {
         {isSubmitting ? "Processing..." : "Submit"}
       </button>
       <button onClick={onClose}>Close</button>
-
-      {processedVideoUrl && (
-        <div>
-          <h3>Processed Video:</h3>
-          <video controls width="500">
-            <source src={processedVideoUrl} type="video/mp4" />
-          </video>
-          <button onClick={handleDownload}>Download Video</button>
-        </div>
-      )}
     </div>
   );
 };
